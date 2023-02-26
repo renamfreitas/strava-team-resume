@@ -1,8 +1,8 @@
 <script>
-  import Strava from '$components/Strava/Strava.svelte';
+  import RunningActivities from '$components/RunningActivities/RunningActivities.svelte';
 
   const STRAVA_ATHLETE_ID = import.meta.env.STRAVA_ATHLETE_ID;
 
   const athleteId = STRAVA_ATHLETE_ID;
 </script>
-<Strava {athleteId} />
+<RunningActivities {athleteId} />

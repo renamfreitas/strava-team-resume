@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import ActivityList from '$components/ActivityList/ActivityList.svelte';
   
   export let athleteId;
   let accessToken;
@@ -48,17 +49,8 @@
 </script>
 
 <h3>Atividades de corrida:</h3>
-<ol>
-  {#if !accessToken}
-    <a href={`https://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${STRAVA_REDIRECT_URI}&approval_prompt=auto&scope=read_all,activity:read_all`}>Autorizar acesso</a>
-  {:else}
-    {#each activities.filter(a => a.type === 'Run') as activity}
-      <li>{activity.name} / {(activity.distance/1000).toFixed(2)}km</li>
-    {/each}
-  {/if}
-</ol>
-
-{#if activities.filter(a => a.type === 'Run').length > 0}
-  <p>Total de corrida: {(activities.filter(a => a.type === 'Run').reduce((total, a) => total + a.distance, 0) / 1000).toFixed(2)}km</p>
+{#if !accessToken}
+  <a href={`https://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${STRAVA_REDIRECT_URI}&approval_prompt=auto&scope=read_all,activity:read_all`}>Autorizar acesso</a>
+{:else}
+  <ActivityList activities={activities} type="Run" />
 {/if}
-
