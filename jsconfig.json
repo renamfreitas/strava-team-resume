@@ -1,0 +1,11 @@
+// jsconfig.json
+{
+	"extends": "./.svelte-kit/tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"$components/*": ["src/components/*"]
+		}
+	},
+  // ...
+}
