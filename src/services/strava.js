@@ -19,7 +19,7 @@ export const getAccessToken = async (code) => {
 }
 
 export const getActivities = async (accessToken) => {
-  const response = await fetch(`https://www.strava.com/api/v3/athlete/activities?access_token=${accessToken}`, {
+  const response = await fetch(`https://www.strava.com/api/v3/athlete/activities?access_token=${accessToken}&per_page=200`, {
     headers: {
       'Content-Type': 'application/json'
     }
