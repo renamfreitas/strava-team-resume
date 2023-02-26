@@ -3,7 +3,6 @@
   import ActivityList from '$components/ActivityList/ActivityList.svelte';
   import { getAccessToken, getActivities, authorizeLink } from '$services/strava';
 
-  export let athleteId;
   let accessToken;
   let activities = [];
 
