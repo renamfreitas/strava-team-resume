@@ -24,6 +24,7 @@
     });
     const data = await response.json();
     accessToken = data.access_token;
+    history.pushState({}, null, window.location.origin + window.location.pathname);
   }
 
   const getActivities = async () => {
@@ -48,12 +49,16 @@
 
 <h3>Atividades de corrida:</h3>
 <ol>
-  <a href={`https://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${STRAVA_REDIRECT_URI}&approval_prompt=auto&scope=read_all,activity:read_all`}>Autorizar acesso</a>
-  {#each activities.filter(a => a.type === 'Run') as activity}
-    <li>{activity.name} / {(activity.distance/1000).toFixed(2)}km</li>
-  {/each}
+  {#if !accessToken}
+    <a href={`https://www.strava.com/oauth/authorize?client_id=${STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${STRAVA_REDIRECT_URI}&approval_prompt=auto&scope=read_all,activity:read_all`}>Autorizar acesso</a>
+  {:else}
+    {#each activities.filter(a => a.type === 'Run') as activity}
+      <li>{activity.name} / {(activity.distance/1000).toFixed(2)}km</li>
+    {/each}
+  {/if}
 </ol>
 
 {#if activities.filter(a => a.type === 'Run').length > 0}
   <p>Total de corrida: {(activities.filter(a => a.type === 'Run').reduce((total, a) => total + a.distance, 0) / 1000).toFixed(2)}km</p>
 {/if}
+
